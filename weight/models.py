@@ -10,8 +10,12 @@ class WeightConfig(models.Model):
     
 
     def calculo_doses(self):
-        return (self.weigh_bottle_and_liquid - self.tare) * self.quantity_of_doses / (self.gross_bottle_weight - self.tare )
-    
+
+        calc = (self.weigh_bottle_and_liquid - self.tare) * self.quantity_of_doses / (self.gross_bottle_weight - self.tare )
+        if  self.weigh_bottle_and_liquid < (self.gross_bottle_weight - self.weight_liquid):
+            return ('"ERROR" value less than tare')
+        else:
+            return calc 
     
 
     def __str__(self):
